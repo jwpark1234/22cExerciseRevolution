@@ -1,0 +1,257 @@
+﻿create table user (
+ID varchar(20) primary key,       
+Password varchar(20) not null,    
+Name varchar(10) not null,       
+Jumin varchar(14) not null unique,   
+Nickname varchar(15) not null unique,
+Address varchar(50) not null,
+Member_pic varchar(20) default "Test.jpg",    
+Phonenum varchar(13) not null,
+Email varchar(20) not null,      
+Height double not null,      
+Weight double not null,      
+Level int default 1,       
+Point int default 0,
+Exp int default 0
+);
+
+
+insert into user values('admin','admin','운영자','111111-1111111','운영자','부산%부산%부산','shindon.jpg','010-1234-1234','leonu@naver.com',200,100,6,100000,100000);
+
+
+create table event(
+no int primary key auto_increment,
+cate varchar(10),
+id varchar(20),
+subject varchar(30),
+date date,
+imgMain varchar(100),
+imgContent varchar(100),
+total int,
+give int,
+level int,
+count int,
+discount int,
+finish int
+);
+
+
+create table evententer(
+subject varchar(30),
+id varchar(20),
+dateEnter date,
+ck varchar(2));
+
+
+create table coupon(
+id varchar(20),
+coupon varchar(30),
+discount int,
+date date,
+buy varchar(20),
+useCk int
+);
+
+
+create table gambleresult(
+no int primary key auto_increment,
+id varchar(20),
+me varchar(2),
+result varchar(2));
+
+
+create table mainright(
+img varchar(30) 
+);
+
+
+insert into mainright values('a');
+
+
+create table excercise_plan_menu(
+id int primary key auto_increment,
+category_num int not null,
+category_name varchar(100) not null,
+category_filename varchar(100) not null,
+count int not null,
+calorie int not null,
+url varchar(100) not null,
+time varchar(20) not null
+);
+
+
+LOAD DATA LOCAL INFILE 'C://menu1.txt' 
+INTO TABLE excercise_plan_menu
+CHARACTER SET UTF8
+FIELDS TERMINATED BY '\t'; 
+
+
+delete from excercise_plan_menu where id=58;
+
+
+create table user_excercise_plan(
+idx int  primary key auto_increment,   
+userId   varchar(30) not null,
+excercise_name   varchar(50) not null,
+calorie   varchar(10) not null,
+Height   varchar(6) not null,
+Weight   varchar(6) not null,
+count   int not null,
+Regdate varchar(20),
+exercise_comment varchar(1000) not null,
+my_category_img varchar(100) not null,
+exercise_cate_menu varchar(100) not null
+);
+
+
+create table exercise_grade_comment2(
+idx int primary key,
+cate varchar(10) not null,
+grade varchar(1) not null,
+comment varchar(1000) not null
+);
+
+
+LOAD DATA LOCAL INFILE 'c://exercise_grade_comment2.txt'
+ INTO TABLE exercise_grade_comment2 
+ character set utf8 FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\r\n';
+
+
+create table food(
+idx int primary key auto_increment,
+name varchar(20) not null,
+quantity int not null,
+calorie int not null,
+tan double not null,
+dan double not null,
+ji double not null
+);
+
+
+LOAD DATA LOCAL INFILE 'c://Food.tsv' INTO TABLE food character set utf8 FIELDS TERMINATED BY '\t' LINES TERMINATED BY '\r\n';
+
+
+create table user_diet(
+id varchar(20) not null,
+category varchar(5) not null,
+menu varchar(50) not null,
+count double not null
+);
+
+
+create table diet_analysis (
+id varchar(20) not null,
+category varchar(10) not null,
+calorie int not null,
+tan double not null,
+dan double not null,
+ji double not null,
+regdate datetime
+);
+
+
+create table chat_request(
+idx int primary key auto_increment,
+req_id varchar(20) not null,
+req_level int not null,
+resp_id varchar(20),
+resp_level int,
+subject varchar(50) not null,
+regdate datetime,
+status int not null default 2
+);
+
+
+create table chat_room(
+idx int primary key auto_increment,
+req_idx int not null,
+from_id varchar(20) not null,
+from_level int not null,
+to_id varchar(20) not null,
+message varchar(500) not null,
+regdate datetime,
+checkMsg int not null default 1
+);
+
+
+create table sboard(
+  num int auto_increment primary key,
+  name varchar(50) unique not null,
+  img varchar(30),
+  date  datetime,
+  adnum varchar(20),
+  price int,
+  sexpl varchar(100),
+  lexpl varchar(200),
+  stock int default 0,
+  sell int default 0,
+  fexpl varchar(50)
+);
+
+
+LOAD DATA LOCAL INFILE 'C://product.csv' 
+INTO TABLE sboard
+CHARACTER SET UTF8
+FIELDS TERMINATED BY ','; 
+
+
+create table deliver(
+ num int  auto_increment primary key,
+ id varchar(16) not null,
+name varchar(16) ,
+pname varchar(50),
+pimg varchar(20),
+count int(11) default 1,
+price int(11) default 0,
+ttime int(11) default 7,
+ date datetime,
+ stat varchar(15) not null,
+ dest varchar(45) not null,
+ 5star int(4) not null default 1
+);
+
+
+create table datgle(
+num int auto_increment primary key,
+pname varchar(50),
+id varchar(20),
+content varchar(50),
+grade int default 0
+);
+
+
+create table ex_post(
+ num int primary key auto_increment,
+ id varchar(20) not null,
+ subject varchar(100) not null,
+ content varchar(500) not null,
+ regdate datetime
+ );
+ 
+ 
+create table board_tip (
+Num int Auto_increment primary key,        
+Id varchar(20) not null,    
+Subject varchar(50) not null,       
+Password varchar(10) not null,
+Date datetime,
+Re_step int not null default 0,
+Readcount int not null default 0,
+Content varchar(1000) not null,        
+pos int default 0,       
+depth int default 0
+);
+
+create table board_free (
+Num int Auto_increment primary key,        
+Id varchar(20) not null,    
+Subject varchar(50) not null,       
+Password varchar(10) not null,
+Date datetime,
+Re_step int not null default 0,
+Readcount int not null default 0,
+Content varchar(1000) not null,        
+pos int default 0,       
+depth int default 0
+);
+

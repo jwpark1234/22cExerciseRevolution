@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0 //EN"
+                "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+    <!-- 하단의 DataSource 설정을 위해 위에서 생성한 db.properties 파일 위치 설정 -->
+    <properties resource="config/config.properties" />
+    <!-- 
+        iBatis사용을 위한 설정입니다. 아래 설정내용은 
+        useStatementNamespaces="false"를 true로 변경한것 빼고는 Default 설정입니다.
+    -->
+    <settings
+        cacheModelsEnabled="true"
+        enhancementEnabled="true"
+        lazyLoadingEnabled="true"
+        maxRequests="32"
+        maxSessions="10"
+        maxTransactions="5"
+        useStatementNamespaces="true"
+    />
+    <!-- properties태그로 properties 파일 위치 경로를 선언하면 
+         ${properties파일에 선언한 이름} 으로 접근하여 데이터를 가져 올수 있습니다.
+         properties 파일을 생성하지 않고 ${driver} 대신 바로 "com.mysql.jdbc.Driver"
+         와 같이 직접 넣을 수도 있습니다.
+    -->
+    <transactionManager type="JDBC" >
+        <dataSource type="SIMPLE">
+            <property name="JDBC.Driver" value="${driver}"/>
+            <property name="JDBC.ConnectionURL" value="${url}"/>
+            <property name="JDBC.Username" value="${username}"/>
+            <property name="JDBC.Password" value="${password}"/>
+        </dataSource>
+    </transactionManager>
+     
+    <!--sqlMap 태그는 실제 쿼리문이 들어갈 xml파일입니다. -->
+    <!-- DBsqlmap패키지에 추가한 xml파일을 추가해준다. -->
+    <sqlMap resource="DBsqlmap/UserSqlMap.xml" />
+    <sqlMap resource="DBsqlmap/jagi_ganli_plan.xml" />
+    <sqlMap resource="DBsqlmap/eventEnter.xml" />
+    <sqlMap resource="DBsqlmap/ex_dash.xml"/>
+   	<sqlMap resource="DBsqlmap/Diet.xml"/>
+   	<sqlMap resource="DBsqlmap/Chat.xml"/>
+   	<sqlMap resource="DBsqlmap/buy.xml"/>
+   	<sqlMap resource="DBsqlmap/Board.xml"/>
+</sqlMapConfig>
+
