@@ -61,7 +61,8 @@ public class Chat {
 				
 				// 해당 클라이언트에게 메세지를 보냄.
 				clients.get(String.valueOf(req_idx) + "%" + to_id).getBasicRemote()
-				.sendText("<div class='receiMessage'><img src='images/level/" + from_level + ".jpg' style='width:22px; height:22px;'><span><b>" + from_id + "</b></span><p>" + message + "</p><span class='date'>" + f.format(date) + "</span></div>");
+				.sendText("<div class='receiMessage'><img src='images/level/" + from_level + ".jpg' style='width:22px; height:22px;'>"
+				+ "<span><b>" + from_id + "</b></span><p>" + message + "</p><span class='date'>" + f.format(date) + "</span></div>");
 			}
 		}
 	}

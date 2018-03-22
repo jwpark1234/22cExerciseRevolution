@@ -13,12 +13,12 @@ public class pointReadAction implements CommandAction {
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		// TODO Auto-generated method stub
-		
+
 		// point.json이라는 파일을 읽어와서 request객체로 전달한다
 		JsonFile2 jf = new JsonFile2();
-		JSONObject json = jf.readJsonFile(request.getServletContext().getRealPath("upload")+"/point.json");
+		JSONObject json = jf.readJsonFile(request.getServletContext().getRealPath("upload") + "/point.json");
 		System.out.println(json.toJSONString());
-		
+
 		/**
 		 * {
 		 * "level5":"20",
@@ -39,9 +39,9 @@ public class pointReadAction implements CommandAction {
 		 * "buy_point_discount":"5"			구매 시 사용가능 포인트(상품가격의 %)
 		 * }
 		 */
-	
+
 		request.setAttribute("json", json);
-		
+
 		return "admin.jsp";
 	}
 
