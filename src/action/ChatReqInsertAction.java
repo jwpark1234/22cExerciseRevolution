@@ -48,7 +48,7 @@ public class ChatReqInsertAction implements CommandAction {
 		// point.json에 포인트 시스템에 대한 정보가 있음
 		JSONObject json = jf.readJsonFile(request.getServletContext().getRealPath("upload") + "/point.json");
 		User user = new UserDao().updatePointAndLevel(false, id, "chat_point", json);
-													// 차감,대상자,채팅 포인트,모든 포인트 정보
+							     // 차감,대상자,채팅 포인트,모든 포인트 정보
 		// 포인트 갱신
 		request.getSession().setAttribute("Level", user.getLevel());
 		request.getSession().setAttribute("Point", user.getPoint());
