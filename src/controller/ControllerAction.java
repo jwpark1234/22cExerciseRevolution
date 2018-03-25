@@ -90,7 +90,7 @@ public void init(ServletConfig config) throws ServletException{
 			view=com.requestPro(request, response);
 			System.out.println("view:"+view);
 			
-			if(view==null)
+			if(view==null) {
 				return;
 			}
 		}catch(Throwable e){

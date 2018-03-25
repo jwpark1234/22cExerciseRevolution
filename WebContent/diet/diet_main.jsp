@@ -1,65 +1,74 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
-    <link rel="icon" type="image/png" href="assets/img/favicon.png" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>22세기 운동혁명</title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-    <meta name="viewport" content="width=device-width" />
-    <!-- Bootstrap core CSS     -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-    <!--  Material Dashboard CSS    -->
-    <link href="assets/css/material-dashboard.css?v=1.2.0" rel="stylesheet" />
-    
-    <!--     Fonts and icons     -->
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+<meta charset="utf-8" />
+<link rel="apple-touch-icon" sizes="76x76"
+	href="assets/img/apple-icon.png" />
+<link rel="icon" type="image/png" href="assets/img/favicon.png" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>22세기 운동혁명</title>
+<meta
+	content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'
+	name='viewport' />
+<meta name="viewport" content="width=device-width" />
+<!-- Bootstrap core CSS     -->
+<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+<!--  Material Dashboard CSS    -->
+<link href="assets/css/material-dashboard.css?v=1.2.0" rel="stylesheet" />
+
+<!--     Fonts and icons     -->
+<link
+	href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+	rel="stylesheet">
+<link
+	href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons'
+	rel='stylesheet' type='text/css'>
 <style type="text/css">
+#diet_panel2 {
+	margin: 15px;
+}
 
-		#diet_panel2 {
-			margin:15px;
-		}
+.list-left li {
+	cursor: pointer;
+}
 
-        .list-left li {
-            cursor: pointer;
-        }
-        
-        li a:hover {
-        	text-decoration: none;
-        	cursor:pointer;
-        }
-        
-        .list-arrows {
-            padding-top: 150px;
-        }
+li a:hover {
+	text-decoration: none;
+	cursor: pointer;
+}
 
-        .menuItem {
-        	min-height:300px;
-        	margin:10px;
-        }
-       
-        .black {
-        	color:black;
-        }
-        
-        .totalCalorie, .totalMenuCalorie {
-        	font-weight: bold;
-        }
+.list-arrows {
+	padding-top: 150px;
+}
+
+.menuItem {
+	min-height: 300px;
+	margin: 10px;
+}
+
+.black {
+	color: black;
+}
+
+.totalCalorie, .totalMenuCalorie {
+	font-weight: bold;
+}
 </style>
 
-  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <!-- Resources -->
 <!-- Resources -->
 <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
 <script src="https://www.amcharts.com/lib/3/serial.js"></script>
-<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script
+	src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet"
+	href="https://www.amcharts.com/lib/3/plugins/export/export.css"
+	type="text/css" media="all" />
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 <script type="text/javascript">
 // 페이지가 다 로드되면
@@ -428,130 +437,147 @@ function reset() {
 </head>
 <body>
 	<jsp:include page="../side.jsp">
-	<jsp:param value="diet" name="selectMenu"/>
+		<jsp:param value="diet" name="selectMenu" />
 	</jsp:include>
 	<div class="main-panel">
-		<jsp:include page="../top.jsp"/>
+		<jsp:include page="../top.jsp" />
 		<div class="content">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-3 col-md-12">
 						<div class="card">
-			                <div class="card-header" data-background-color="red">
-			                    <h4 class="title">내 정보</h4>
-			                    <p class="category"></p>
-			                </div>
-			                <div class="card-content">
-			                    <div id="typography">
-				                    <br>
-			                    	<p>
-										 현재체중 : <b>${sessionScope.Weight}Kg</b> , 표준체중 : <b>${sessionScope.sWeight}Kg</b><br>
-										<div>표준체중에 따른 하루 필요칼로리<br>
-										<b> - 운동 강도 <font color="blue">보통</font> : <fmt:formatNumber value="${sessionScope.sWeight * 30}" pattern="#"/>Kcal ~ <fmt:formatNumber value="${sessionScope.sWeight * 35}" pattern="#"/>Kcal<br>
-										 - 운동 강도 <font color="red">격함</font> : <fmt:formatNumber value="${sessionScope.sWeight * 35}" pattern="#"/>Kcal ~ <fmt:formatNumber value="${sessionScope.sWeight * 40}" pattern="#"/>Kcal</b></div>
+							<div class="card-header" data-background-color="red">
+								<h4 class="title">내 정보</h4>
+								<p class="category"></p>
+							</div>
+							<div class="card-content">
+								<div id="typography">
+									<br>
+									<p>
+										현재체중 : <b>${sessionScope.Weight}Kg</b> , 표준체중 : <b>${sessionScope.sWeight}Kg</b><br>
+									<div>
+										표준체중에 따른 하루 필요칼로리<br> <b> - 운동 강도 <font color="blue">보통</font>
+											: <fmt:formatNumber value="${sessionScope.sWeight * 30}"
+												pattern="#" />Kcal ~ <fmt:formatNumber
+												value="${sessionScope.sWeight * 35}" pattern="#" />Kcal<br>
+											- 운동 강도 <font color="red">격함</font> : <fmt:formatNumber
+												value="${sessionScope.sWeight * 35}" pattern="#" />Kcal ~ <fmt:formatNumber
+												value="${sessionScope.sWeight * 40}" pattern="#" />Kcal
+										</b>
+									</div>
 									</p>
 									<hr>
-									<h5><b>표준체중과 필요칼로리</b></h5>
+									<h5>
+										<b>표준체중과 필요칼로리</b>
+									</h5>
 									<p>
-										<b>표준체중(Kg)(남자)</b> = 키(m) * 키(m) * 22<br>
-										<b>표준체중(Kg)(여자)</b> = 키(m) * 키(m) * 21<br>
-										<b>필요칼로리(운동 보통)(Kcal)</b> = 표준체중 * (25 ~ 30)<br>
-										<b>필요칼로리(운동 격함)(Kcal)</b> = 표준체중 * (35 ~ 40)<br><br>
+										<b>표준체중(Kg)(남자)</b> = 키(m) * 키(m) * 22<br> <b>표준체중(Kg)(여자)</b>
+										= 키(m) * 키(m) * 21<br> <b>필요칼로리(운동 보통)(Kcal)</b> = 표준체중 *
+										(25 ~ 30)<br> <b>필요칼로리(운동 격함)(Kcal)</b> = 표준체중 * (35 ~
+										40)<br>
+										<br>
 									</p>
-									<h5><b>한국인 3대 영양소 하루 섭취 권장량</b></h5>
+									<h5>
+										<b>한국인 3대 영양소 하루 섭취 권장량</b>
+									</h5>
 									<p>
-										<b>탄수화물(g)</b> = 총칼로리 * 0.6 / 4<br>
-										<b>단백질(g)</b> = 55 ~ 65g #<br>
-										<b>지방(g)</b> = 총칼로리 * 0.2 / 9<br>
+										<b>탄수화물(g)</b> = 총칼로리 * 0.6 / 4<br> <b>단백질(g)</b> = 55 ~
+										65g #<br> <b>지방(g)</b> = 총칼로리 * 0.2 / 9<br>
 									</p>
 								</div>
 							</div>
 							<div class="card-footer">
-								<div class="stats"># 20~30대 남녀의 기준. 단백질은 성별, 연령에 따라 다름 </div>
+								<div class="stats"># 20~30대 남녀의 기준. 단백질은 성별, 연령에 따라 다름</div>
 							</div>
 						</div>
 					</div>
 					<div class="col-lg-9 col-md-12">
 						<div id="mainContent">
 							<div class="card">
-				                <div class="card-header" data-background-color="red">
-				                	<h4 class="title">식단 선택</h4>
-				                	<p class="category">음식을 검색하여 하루 필요 열량(Kcal)에 맞춰 식단을 만들어 보세요.</p>
-				                </div>
-				               	<div class="card-content">
-					                <div id="diet_panel">
+								<div class="card-header" data-background-color="red">
+									<h4 class="title">식단 선택</h4>
+									<p class="category">음식을 검색하여 하루 필요 열량(Kcal)에 맞춰 식단을 만들어
+										보세요.</p>
+								</div>
+								<div class="card-content">
+									<div id="diet_panel">
 										<div class="row">
-						                    <div class="col-md-5">
+											<div class="col-md-5">
 												<div class="input-group">
-													<span class="input-group-addon">
-						                            	<i class="material-icons">search</i>
-						                            </span>
-						                            <div class="form-group">
-						                            	<input type="text" id="keyWord" class="form-control" placeholder="음식명이나 칼로리 검색" />
+													<span class="input-group-addon"> <i
+														class="material-icons">search</i>
+													</span>
+													<div class="form-group">
+														<input type="text" id="keyWord" class="form-control"
+															placeholder="음식명이나 칼로리 검색" />
 													</div>
 												</div>
-						                    </div>
-						                    
-						                    <div class="col-md-offset-2 col-md-5">
+											</div>
+
+											<div class="col-md-offset-2 col-md-5">
 												<div class="input-group">
-													<span class="input-group-addon">
-						                            	<i class="material-icons">receipt</i>
-						                            </span>
-						                            <div class="form-group">
-						                            	<h4>선택한 식단</h4>
-					                            	</div>
+													<span class="input-group-addon"> <i
+														class="material-icons">receipt</i>
+													</span>
+													<div class="form-group">
+														<h4>선택한 식단</h4>
+													</div>
 												</div>
-						                    </div>
-						                </div>
-						                <div class="row">
-									        <div class="dual-list list-left col-md-5" >
-									            <div class="well">
-									                <div id="foodList"> <!-- 여기에 검색창 + 선택할 수 있는 음식리스트가 뿌려진다 -->
-									                </div>
-									            </div>
-									        </div>
-								
-									        <div class="list-arrows col-md-2 text-center" style=" height:270px;">
-										        <button class="btn btn-danger move-right">
-										            <i class="material-icons">forward</i>
-										        </button>
-									     	</div>
-									     	
-									     	<!-- 여기에 내가 선택한 음식리스트가 뿌려진다 -->
-										    <div class="dual-list list-right col-md-5">
-										        <div class="well">
-										            <ul class="list-group" style="overflow-y:scroll; height:200px;"></ul>
-									                <table width=100%>
-										                <tr>
-											                <td></td>                                                            
-												            <td id="selectMenu" align=right>
-													            <div class="checkbox">
-													            	<label for="break">
-													            		<input type="checkbox" name="mealtime" id="break" value="아침"><font color="black">아침</font>
-													            	</label>
-													            	<label for="lunch">
-													            		<input type="checkbox" name="mealtime" id="lunch" value="점심"><font color="black">점심</font>
-													            	</label>
-													            	<label for="dinner">
-													            		<input type="checkbox" name="mealtime" id="dinner" value="저녁"><font color="black">저녁</font>
-													            	</label>
-												            	</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="dual-list list-left col-md-5">
+												<div class="well">
+													<div id="foodList">
+														<!-- 여기에 검색창 + 선택할 수 있는 음식리스트가 뿌려진다 -->
+													</div>
+												</div>
+											</div>
+
+											<div class="list-arrows col-md-2 text-center"
+												style="height: 270px;">
+												<button class="btn btn-danger move-right">
+													<i class="material-icons">forward</i>
+												</button>
+											</div>
+
+											<!-- 여기에 내가 선택한 음식리스트가 뿌려진다 -->
+											<div class="dual-list list-right col-md-5">
+												<div class="well">
+													<ul class="list-group"
+														style="overflow-y: scroll; height: 200px;"></ul>
+													<table width=100%>
+														<tr>
+															<td></td>
+															<td id="selectMenu" align=right>
+																<div class="checkbox">
+																	<label for="break"> <input type="checkbox"
+																		name="mealtime" id="break" value="아침"><font
+																		color="black">아침</font>
+																	</label> <label for="lunch"> <input type="checkbox"
+																		name="mealtime" id="lunch" value="점심"><font
+																		color="black">점심</font>
+																	</label> <label for="dinner"> <input type="checkbox"
+																		name="mealtime" id="dinner" value="저녁"><font
+																		color="black">저녁</font>
+																	</label>
+																</div>
 															</td>
 														</tr>
 														<tr>
 															<td>
 																<h4 class="totalCalorie">총 0 Kcal</h4>
 															</td>
-															<td align=right>
-													            <span class="input-group-btn">
-													                <button class="btn btn-danger" id="insertMyMenu">식단 추가</button>
-													                <button class="btn btn-default" id="reset">목록 비우기</button>
-																</span>
-															</td>
+															<td align=right><span class="input-group-btn">
+																	<button class="btn btn-danger" id="insertMyMenu">식단
+																		추가</button>
+																	<button class="btn btn-default" id="reset">목록
+																		비우기</button>
+															</span></td>
 														</tr>
-													</table>          
-									            </div>
-									        </div>
+													</table>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -562,15 +588,19 @@ function reset() {
 				<div class="row">
 					<div class="col-md-12">
 						<div class="card">
-			                <div class="card-header" data-background-color="red">
-			                	<h4 class="title" style="display: inline;">하루 식단표</h4>&nbsp;&nbsp;
-			                	<button class="btn btn-danger" id="analysis"><i class="material-icons">assessment</i>식단 분석</button>
-			                	<p class="category">식단 분석을 하면 식단이 저장되고 [마이페이지]에서 다시 확인할 수 있습니다.</p>
-			                </div>
-			               	<div class="card-content">
-				               	<div id="diet_panel2">
+							<div class="card-header" data-background-color="red">
+								<h4 class="title" style="display: inline;">하루 식단표</h4>
+								&nbsp;&nbsp;
+								<button class="btn btn-danger" id="analysis">
+									<i class="material-icons">assessment</i>식단 분석
+								</button>
+								<p class="category">식단 분석을 하면 식단이 저장되고 [마이페이지]에서 다시 확인할 수
+									있습니다.</p>
+							</div>
+							<div class="card-content">
+								<div id="diet_panel2">
 									<div class="row">
-										<div class="well col-md-12" >
+										<div class="well col-md-12">
 											<!-- 최종적으로 선택된 아침, 점심, 저녁 식단이 뿌려진다 -->
 											<div class="row" id="menu_panel" style="min-height: 300px;">
 												<div id="breakPanel" class="col-md-4"></div>
@@ -581,14 +611,14 @@ function reset() {
 										</div>
 									</div>
 								</div>
-			                </div>
-			            </div>
-		            </div>
-	            </div>
-	        </div>
-        </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-		<!--   Core JS Files   -->
+	<!--   Core JS Files   -->
 	<script src="assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
 	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="assets/js/material.min.js" type="text/javascript"></script>
