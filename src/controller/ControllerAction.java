@@ -23,19 +23,18 @@ public void init(ServletConfig config) throws ServletException{
 }
 	private void loadProperties(String path){
 		ResourceBundle rbHome=ResourceBundle.getBundle(path);
-		//�쓽�룄 rbHome �씠由�=>�냽�꽦媛�.. 寃쎈줈媛� 異붿텧�씠 紐⑹쟻.		
+		//변수 rbHome에 가상주소와 실제 액션클래스 이름을 매핑시켜놓은 파일을 읽어와 저장한다.
 		Enumeration<String> actionEnumHome=rbHome.getKeys();
 		
 		while(actionEnumHome.hasMoreElements()){
 			String command=actionEnumHome.nextElement();
 			String className=rbHome.getString(command);
-			//�냽�꽦媛믪씠 �씠由꾧컪�쑝濡�
+			
 			try{
 				Class commandClass=Class.forName(className);
-				//寃쎈줈媛믪쓣 �겢�옒�뒪�솕
+				//액션클래스를 얻어온다.
 				Object commandInstance=commandClass.newInstance();
-				//媛앹껜 �깮�꽦.
-				
+				//객체를 만들고 가상주소와 가상주소에 해당하는 객체 Map에 담는다.
 				commandMap.put(command, commandInstance);
 				
 			}catch(ClassNotFoundException e){
@@ -80,34 +79,34 @@ public void init(ServletConfig config) throws ServletException{
 				 System.out.println("command:"+command);
 			}
 			
+		 	// 액션객체를 하나씩 꺼내 
 			com=(CommandAction)commandMap.get(command);
 			
 			if(com==null){
 				System.out.println("not found:"+command);
 				return;
 			}
-			
+			// 요청에 따른 액션객체의 requestPro() 메소드를 수행한 후 페이지 전환될 jsp 페이지명을 리턴받는다.
 			view=com.requestPro(request, response);
-					System.out.println("view:"+view);
+			System.out.println("view:"+view);
 			
-					if(view==null){
-						return;
-					}
+			if(view==null)
+				return;
+			}
 		}catch(Throwable e){
 			throw new ServletException(e);
-			
 		}
 		if(view==null) {
 			return;
 		}
 		
 		int lastIdx = view.lastIndexOf(".");
-		// requestPro의 리턴값이 주소값이면 center페이지 변경
+		// requestPro의 리턴값이 주소값이면 forward()메소드를 통해 사용자의 요청에 대한 페이지 전환을 한다.
 		if(view.substring(lastIdx + 1).equals("jsp")) {
 			RequestDispatcher dispatcher=request.getRequestDispatcher(view);
 			dispatcher.forward(request, response);
 		}
-		// 아니면 response객체에 쓰기
+		// 아니면 response객체에 쓴 후 사용자에게 응답한다.
 		else {
 			response.getWriter().write(view);
 		}
