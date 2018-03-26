@@ -72,21 +72,21 @@ public void init(ServletConfig config) throws ServletException{
 			
 			System.out.println("command index:"+command.indexOf(request.getContextPath()));
 			System.out.println("request.getContextPath():"+request.getContextPath());
-			
+			//사용자의 요청주소가 있다면 .do 가상주소만 얻어온다.
 			if(command.indexOf(request.getContextPath())==0){
 				 command = command.substring(request.getContextPath().length());
 
 				 System.out.println("command:"+command);
 			}
 			
-		 	// 액션객체를 하나씩 꺼내 
+		 	// 얻어온 가상주소와 일치하는 액션객체를 하나씩 꺼내온다 
 			com=(CommandAction)commandMap.get(command);
 			
 			if(com==null){
 				System.out.println("not found:"+command);
 				return;
 			}
-			// 요청에 따른 액션객체의 requestPro() 메소드를 수행한 후 페이지 전환될 jsp 페이지명을 리턴받는다.
+			// 액션객체의 requestPro() 메소드를 수행한 후 페이지 전환될 jsp 페이지명이나 문자열 데이터를 리턴받는다.
 			view=com.requestPro(request, response);
 			System.out.println("view:"+view);
 			
@@ -101,12 +101,12 @@ public void init(ServletConfig config) throws ServletException{
 		}
 		
 		int lastIdx = view.lastIndexOf(".");
-		// requestPro의 리턴값이 주소값이면 forward()메소드를 통해 사용자의 요청에 대한 페이지 전환을 한다.
+		// requestPro의 리턴값이 jsp페이지명이면 forward()메소드를 통해 해당 페이지로 페이지 전환을 한다.
 		if(view.substring(lastIdx + 1).equals("jsp")) {
 			RequestDispatcher dispatcher=request.getRequestDispatcher(view);
 			dispatcher.forward(request, response);
 		}
-		// 아니면 response객체에 쓴 후 사용자에게 응답한다.
+		// 아니면 문자열 데이터이므로 response객체에 쓴 후 사용자에게 응답한다.
 		else {
 			response.getWriter().write(view);
 		}
